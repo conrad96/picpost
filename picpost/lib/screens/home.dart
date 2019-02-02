@@ -97,12 +97,23 @@ class _MyHomePageState extends State<MyHomePage>
                 child: Icon(Icons.camera_alt),
                 onPressed: getImageCamera,
               ),
-              RaisedButton(
-                child: Icon(Icons.file_upload),
-                // ignore: argument_type_not_assignable
-                onPressed: (){
-                  uploadImageFile(_image);
-                },
+              Column(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      RaisedButton(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.file_upload),
+                        ),
+                        // ignore: argument_type_not_assignable
+                        onPressed: (){
+                          uploadImageFile(_image);
+                        },
+                      ),
+                    ],
+                  ),
+                ],
               )
             ],
           ),
