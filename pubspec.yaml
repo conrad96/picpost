@@ -23,6 +23,7 @@ dependencies:
   http: any
   path_provider: "^0.4.1"
   image: "^2.0.4"
+  dio: "2.0.0"
 
 dev_dependencies:
   flutter_test:

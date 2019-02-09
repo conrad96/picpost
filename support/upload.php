@@ -1,5 +1,5 @@
 <?php 
-
+	
 	function db_connect()
 	{
 		$host = "localhost";
@@ -9,28 +9,26 @@
 
 		$connect = mysqli_connect($host,$user,$pwd,$db);
 
-		if(!$connect) json_encode("msg"=>"Connection Failed");				
+		if(!$connect) print_r(json_encode(array("msg"=>"Connection Failed")));				
 	}
 
 	if(!empty($_POST))
 	{
-		db_connect(); //connect to the db
+		if(isset($_POST['upload'])):
 
-		//call functions from GET
-		if(isset($_GET['method']) && isset($_GET['value'])): 
-			switch($_GET['method'])
-			{
-				case 'test':
-				$params = $_GET['value'];
-				$response = array(
-					"msg" => "Received",
-					"value" => $_GET['value'],
-					"function" => test_request()
-				);
-				return json_encode($response);
-				break;
+			if(!empty($_FILES)):
+				$upload_dir = "images/";
+				$file_name = $_FILES['photo']['name'];
+				$file = $_FILES['photo']['tmp_name'];
 
-			}
+				if(move_uploaded_file($file, $upload_dir.$file_name)):
+					print_r(json_encode(array("msg"=>"Upload Success")));
+				else:
+					print_r(json_encode(array("msg"=>"Upload Failed")));
+				endif;
+
+			endif;
+
 		endif;
 	}
 
@@ -38,7 +36,5 @@
 	{
 		return json_encode(array("msg"=>"Test Success"));
 	}
-	
-//}
 
 ?>
