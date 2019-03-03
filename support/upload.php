@@ -32,6 +32,11 @@
 		endif;
 	}
 
+	//pull images from server stash 
+	if(!empty($_GET['photos'])):
+		
+	endif;
+
 	function test_request()
 	{
 		return json_encode(array("msg"=>"Test Success"));

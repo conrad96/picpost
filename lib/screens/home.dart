@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as Img;
 import 'dart:convert';
 import 'package:dio/dio.dart';
-
+import 'package:picpost/screens/buttons.dart';
 import '../main.dart';
 
 class MyApp extends StatelessWidget {
@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage>
       _path = ImageSource.camera;
     });
   }
-  
+
   Future uploadImageFile(File image) async
   {
     Dio dio = new Dio();
@@ -90,40 +90,39 @@ class _MyHomePageState extends State<MyHomePage>
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: AppBar(title: Text("PIC POST"),),
-      body: Column(
+      appBar: AppBar(title: Text("PIC POST"),
+      ),
+      body: new ListView(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        padding: const EdgeInsets.all(15.0),
         children: <Widget>[
-          _image == null ? new Text("No image selected") : new Image.file(_image),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               RaisedButton(
                 child: Icon(Icons.image),
-                onPressed: getImageGallery,
+                onPressed: (){
+                  getImageGallery();
+                },
               ),
 
               RaisedButton(
                 child: Icon(Icons.camera_alt),
-                onPressed: getImageCamera,
-              ),
-              Column(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      RaisedButton(
-                        child: Icon(Icons.file_upload),
-                        onPressed: (){
-                            uploadImageFile(_image);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                onPressed: (){
+                  getImageCamera();
+                },
               ),
             ],
           ),
-          _path != null ? new Text(_path) : new Text("No path found"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _image == null ? const Text("No Photo Selected") : new Image.file(_image)
+            ],
+          )
         ],
-      ),
+      )
     );
   }
 }
